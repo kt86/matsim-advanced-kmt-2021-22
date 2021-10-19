@@ -1,3 +1,5 @@
+# KMTs version for MATSim advanced class 2021/22
+
 # matsim-example-project
 
 A small example of how to use MATSim as a library.
