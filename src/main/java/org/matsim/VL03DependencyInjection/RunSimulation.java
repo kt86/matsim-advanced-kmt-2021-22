@@ -38,12 +38,15 @@ class RunSimulation{
 		}
 	}
 	static class SimulationDefaultImpl implements Simulation {
-		@Inject private Helper helper;
+//		//A:) remove non-empty constructor to have a zero-argument constructor (for guice...) since not having exactly one @inject annotated constructor
+//		@Inject private Helper helper;
 
-		//remove non-empty constructor to have a zero-argument constructor (for guice...) since not having exactly one @inject annotated constructor
-//		SimulationDefaultImpl( Helper helper ) {
-//			this.helper = helper;
-//		}
+//	B:	Alternative dazu wäre - ist oft in MATSim, wo wir die bisherigen Construcoren wieder nutzen.:
+		private final Helper helper;
+		@Inject SimulationDefaultImpl(Helper helper){
+			this.helper = helper;
+		}
+
 		public void doStep() {
 			System.out.println( "entering " + this.getClass().getSimpleName() );
 			helper.help();
