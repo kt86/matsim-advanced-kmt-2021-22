@@ -23,10 +23,7 @@ class RunSimulation{
 			protected void configure() {
 				this.bind(Simulation.class).to(SimulationDefaultImpl.class); //Binde Interface TO Implementation.
 //				this.bind(Helper.class).to(HelperDefaultImpl.class); // das was vorher das war: Helper helper = new HelperDefaultImpl();
-				//bind.toInstance(...) normalerweise nicht so sinnvoll, aber viel näher dran an dem was wir bisher haben... von daher durchaus für Übergang ok :)
-				//binding to type (siehe davor) ist besser, weil flexibler für Anpassungen.
-				Helper instance = new HelperDefaultImpl();
-				this.bind(Helper.class).toInstance(instance);
+				this.bind(Helper.class).toProvider(new HelperProvider());
 			}
 		};
 		Injector injector = Guice.createInjector(module);
@@ -35,4 +32,14 @@ class RunSimulation{
 		simulation.doStep();
 	}
 
+	//Ist etwas wie die "Factories". Nur ohne Argumente.
+	static class HelperProvider implements Provider<Helper>{
+		//Hier kann man auch noch eingenes Zeug injecten wenn man möchte..
+		// @Inject ....
+
+		//get ist der Defaultname, was es geben/erstellen soll.
+		@Override public Helper get(){
+			return new HelperDefaultImpl();
+		}
+	}
 }
