@@ -11,7 +11,7 @@ import org.matsim.VL03DependencyInjection.base.SimulationDefaultImpl;
 class RunSimulation{
 
 	public static void main( String[] args ){
-		// calssic way: dependenc< incetion via constructor
+		// classic way: dependency injection via constructor
 //		Helper helper = new HelperDefaultImpl();
 //		Simulation simulation = new SimulationDefaultImpl( helper );
 //		simulation.doStep();
