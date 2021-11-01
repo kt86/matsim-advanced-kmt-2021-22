@@ -23,7 +23,10 @@ class RunSimulation{
 			protected void configure() {
 				this.bind(Simulation.class).to(SimulationDefaultImpl.class); //Binde Interface TO Implementation.
 //				this.bind(Helper.class).to(HelperDefaultImpl.class); // das was vorher das war: Helper helper = new HelperDefaultImpl();
- 				this.bind(Helper.class).to(HelperAlternative1Impl.class); // Nun mal andere Implemntierung verwenden.
+				//bind.toInstance(...) normalerweise nicht so sinnvoll, aber viel näher dran an dem was wir bisher haben... von daher durchaus für Übergang ok :)
+				//binding to type (siehe davor) ist besser, weil flexibler für Anpassungen.
+				Helper instance = new HelperDefaultImpl();
+				this.bind(Helper.class).toInstance(instance);
 			}
 		};
 		Injector injector = Guice.createInjector(module);
