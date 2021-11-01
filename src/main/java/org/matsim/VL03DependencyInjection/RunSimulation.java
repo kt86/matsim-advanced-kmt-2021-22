@@ -2,6 +2,7 @@ package org.matsim.VL03DependencyInjection;
 
 import com.google.inject.*;
 import com.google.inject.Module;
+import org.matsim.VL03DependencyInjection.alternative.HelperAlternative1Impl;
 import org.matsim.VL03DependencyInjection.base.Helper;
 import org.matsim.VL03DependencyInjection.base.HelperDefaultImpl;
 import org.matsim.VL03DependencyInjection.base.Simulation;
@@ -21,8 +22,9 @@ class RunSimulation{
 			@Override
 			protected void configure() {
 				this.bind(Simulation.class).to(SimulationDefaultImpl.class); //Binde Interface TO Implementation.
-				this.bind(Helper.class).to(HelperDefaultImpl.class); // das was vorher das war: Helper helper = new HelperDefaultImpl();
- 			}
+//				this.bind(Helper.class).to(HelperDefaultImpl.class); // das was vorher das war: Helper helper = new HelperDefaultImpl();
+ 				this.bind(Helper.class).to(HelperAlternative1Impl.class); // Nun mal andere Implemntierung verwenden.
+			}
 		};
 		Injector injector = Guice.createInjector(module);
 		Simulation simulation = injector.getInstance(Simulation.class);
