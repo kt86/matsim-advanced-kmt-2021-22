@@ -2,6 +2,10 @@ package org.matsim.VL03DependencyInjection;
 
 import com.google.inject.*;
 import com.google.inject.Module;
+import org.matsim.VL03DependencyInjection.base.Helper;
+import org.matsim.VL03DependencyInjection.base.HelperDefaultImpl;
+import org.matsim.VL03DependencyInjection.base.Simulation;
+import org.matsim.VL03DependencyInjection.base.SimulationDefaultImpl;
 
 class RunSimulation{
 
@@ -24,33 +28,6 @@ class RunSimulation{
 		Simulation simulation = injector.getInstance(Simulation.class);
 		
 		simulation.doStep();
-		
 	}
-	interface Helper{
-		void help();
-	}
-	interface Simulation{
-		void doStep();
-	}
-	static class HelperDefaultImpl implements Helper{
-		public void help(){
-			System.out.println( this.getClass().getSimpleName() + " is helping" );
-		}
-	}
-	static class SimulationDefaultImpl implements Simulation {
-		//A:) remove non-empty constructor to have a zero-argument constructor (for guice...) since not having exactly one @inject annotated constructor
-		@Inject private Helper helper;
 
-////	B:	Alternative dazu wäre - ist oft in MATSim, wo wir die bisherigen Construcoren wieder nutzen.:
-//		private final Helper helper;
-//		@Inject SimulationDefaultImpl(Helper helper){
-//			this.helper = helper;
-//		}
-
-		public void doStep() {
-			System.out.println( "entering " + this.getClass().getSimpleName() );
-			helper.help();
-			System.out.println( "leaving " + this.getClass().getSimpleName() );
-		}
-	}
 }
